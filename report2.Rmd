@@ -6,7 +6,11 @@ title: "Basic inferential analysis of tooth growth data"
 
 ## Synopsis
 
+We will perform basic inferential analysis for the length of teeth in each of 10 guinea pigs at each of three dose levels of Vitamin C (0.5, 1, and 2 mg) with each of two delivery methods (orange juice or ascorbic acid).
+
 ## Data Load
+
+Let's load data:
 
 ```{r}
 library(datasets)
@@ -16,10 +20,94 @@ head(ToothGrowth)
 
 ## Exploratory analysys
 
+Data size:
+
 ```{r}
 dim(ToothGrowth)
 ```
 
+Summary of the data:
+
 ```{r}
 summary(ToothGrowth)
 ```
+
+Some exploratory plots:
+
+```{r}
+library(ggplot2)
+ggplot(aes(x = dose, y = len), data = ToothGrowth) + 
+geom_point(aes(color = supp)) +
+labs(x = 'Dose in milligrams') +
+labs(y = 'Tooth length') +
+labs(title = 'Tooth growth for each of dose levels of Vitamin C with each of methods')
+```
+
+```{r}
+ggplot(aes(x = supp, y = len), data = ToothGrowth) +
+geom_boxplot(aes(fill = supp)) + 
+facet_wrap(~ dose) +
+labs(y = 'Tooth length') +
+labs(title = 'Tooth growth for each of dose levels of Vitamin C with each of methods')
+```
+
+## Confidence Intervals and Hypothesis Testing
+
+Data is neither paired nor with equal variance. 
+
+Let's perform hypothesis testing for different circumstances:
+
+### Dosage only
+
+Firsly let's split data for paired comparison of dose levels (we will compare only nearest pairs):
+
+```{r}
+ToothGrowth_05vs10 <- subset(ToothGrowth, dose %in% c(0.5, 1.0))
+ToothGrowth_10vs20 <- subset(ToothGrowth, dose %in% c(1.0, 2.0))
+```
+
+```{r}
+t.test(len ~ dose, paired = FALSE, var.equal = FALSE, data = ToothGrowth_05vs10)
+```
+
+```{r}
+t.test(len ~ dose, paired = FALSE, var.equal = FALSE, data = ToothGrowth_10vs20)
+```
+
+Both tests brings the same conclusion: bigger dose increases tooth growth.
+
+### Supplement type for different doses
+
+Let's now test supplement types for different doses:
+
+```{r}
+ToothGrowth_05 <- subset(ToothGrowth, dose == 0.5)
+ToothGrowth_10 <- subset(ToothGrowth, dose == 1.0)
+ToothGrowth_20 <- subset(ToothGrowth, dose == 2.0)
+```
+
+```{r}
+t.test(len ~ supp, paired = FALSE, var.equal = FALSE, data = ToothGrowth_05)
+```
+
+Conclusion: for 0.5mg of Vitamin C, orange juice is better than ascorbic acid for tooth growth.
+
+```{r}
+t.test(len ~ supp, paired = FALSE, var.equal = FALSE, data = ToothGrowth_10)
+```
+
+Conclusion: for 1mg of Vitamin C, orange juice is better than ascorbic acid for tooth growth.
+
+```{r}
+t.test(len ~ supp, paired = FALSE, var.equal = FALSE, data = ToothGrowth_20)
+```
+
+Conclusion: for 2mg of Vitamin C, there is no difference between orange juice or ascorbic acid.
+
+## Conclusions
+
+To sum up gotten conclusions:
+
+* Bigger dose increases tooth growth.
+* For 0.5mg and 1mg of Vitamin C, orange juice is better than ascorbic acid for tooth growth.
+* For 2mg of Vitamin C, there is no difference between orange juice or ascorbic acid.
