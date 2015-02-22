@@ -3,3 +3,23 @@ title: "Basic inferential analysis of tooth growth data"
 ---
 
 # Basic inferential analysis of tooth growth data
+
+## Synopsis
+
+## Data Load
+
+```{r}
+library(datasets)
+data(ToothGrowth)
+head(ToothGrowth)
+```
+
+## Exploratory analysys
+
+```{r}
+dim(ToothGrowth)
+```
+
+```{r}
+summary(ToothGrowth)
+```
