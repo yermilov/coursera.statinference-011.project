@@ -1,0 +1,15 @@
+---
+title: "The exponential distribution and the Central Limit Theorem"
+---
+
+# The exponential distribution and the Central Limit Theorem
+Yaroslav Yermilov
+
+## Overview
+
+In this report we will investigate the exponential distribution and compare it with the Central Limit Theorem. The mean of exponential distribution is choosen to be 5 and the standard deviation is also 5. We will investigate the distribution of averages of 40 exponentials in 1000 simulations.
+
+As part of analysys we will:
+1. Show the sample mean and compare it to the theoretical mean of the distribution.
+1. Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution.
+1. Show that the distribution is approximately normal.
