@@ -41,8 +41,37 @@ library(ggplot2)
 data_frame <- data.frame(exp_means)
 
 ggplot(data_frame, aes(x = exp_means)) + 
-geom_histogram(aes(y = ..density..)) + 
-geom_density(size = 2, color = "red") + 
-labs(x = 'Value') +
-labs(y = 'Count')
+geom_histogram(aes(y = ..density..), binwidth=.1, colour="black", fill="white") + 
+geom_density(size = 2, color = "red", alpha=.2, fill="#FF6666") + 
+labs(x = '') + labs(y = '')
+```
+
+## Sample Mean versus Theoretical Mean
+
+Theoretical mean of the distribution:
+
+```{r}
+theoretical_mean <- 1 / lambda
+theoretical_mean
+```
+
+Sample mean of the distribution:
+```{r}
+sample_mean <- mean(exp_means)
+sample_mean
+```
+
+As we can see they are almost equal:
+```{r}
+abs(theoretical_mean - sample_mean)
+```
+
+Let's look at sample mean on distribution histogram:
+
+```{r}
+ggplot(data_frame, aes(x = exp_means)) + 
+geom_histogram(aes(y = ..density..), binwidth=.1, colour="black", fill="white") + 
+geom_density(size = 2, color = "red", alpha=.2, fill="#FF6666") + 
+geom_vline(aes(xintercept = sample_mean), color = "blue", linetype = "dashed", size = 1) +
+labs(x = '') + labs(y = '')
 ```

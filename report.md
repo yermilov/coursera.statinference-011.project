@@ -35,7 +35,7 @@ head(exp_means)
 ```
 
 ```
-## [1] 4.633839 5.545132 4.939696 6.926401 5.269258 5.312287
+## [1] 3.848072 3.691571 5.138187 5.075167 4.820059 6.649218
 ```
 
 Let's look at distribution histogram:
@@ -47,14 +47,57 @@ library(ggplot2)
 data_frame <- data.frame(exp_means)
 
 ggplot(data_frame, aes(x = exp_means)) + 
-geom_histogram(aes(y = ..density..)) + 
-geom_density(size = 2, color = "red") + 
-labs(x = 'Value') +
-labs(y = 'Count')
-```
-
-```
-## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+geom_histogram(aes(y = ..density..), binwidth=.1, colour="black", fill="white") + 
+geom_density(size = 2, color = "red", alpha=.2, fill="#FF6666") + 
+labs(x = '') + labs(y = '')
 ```
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
+
+## Sample Mean versus Theoretical Mean
+
+Theoretical mean of the distribution:
+
+
+```r
+theoretical_mean <- 1 / lambda
+theoretical_mean
+```
+
+```
+## [1] 5
+```
+
+Sample mean of the distribution:
+
+```r
+sample_mean <- mean(exp_means)
+sample_mean
+```
+
+```
+## [1] 5.006923
+```
+
+As we can see they are almost equal:
+
+```r
+abs(theoretical_mean - sample_mean)
+```
+
+```
+## [1] 0.006922838
+```
+
+Let's look at sample mean on distribution histogram:
+
+
+```r
+ggplot(data_frame, aes(x = exp_means)) + 
+geom_histogram(aes(y = ..density..), binwidth=.1, colour="black", fill="white") + 
+geom_density(size = 2, color = "red", alpha=.2, fill="#FF6666") + 
+geom_vline(aes(xintercept = sample_mean), color = "blue", linetype = "dashed", size = 1) +
+labs(x = '') + labs(y = '')
+```
+
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
