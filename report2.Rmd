@@ -1,0 +1,5 @@
+---
+title: "Basic inferential analysis of tooth growth data"
+---
+
+# Basic inferential analysis of tooth growth data
