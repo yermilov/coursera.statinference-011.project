@@ -35,7 +35,7 @@ head(exp_means)
 ```
 
 ```
-## [1] 3.848072 3.691571 5.138187 5.075167 4.820059 6.649218
+## [1] 5.247034 4.373612 3.977648 5.213831 3.205959 5.783001
 ```
 
 Let's look at distribution histogram:
@@ -50,6 +50,10 @@ ggplot(data_frame, aes(x = exp_means)) +
 geom_histogram(aes(y = ..density..), binwidth=.1, colour="black", fill="white") + 
 geom_density(size = 2, color = "red", alpha=.2, fill="#FF6666") + 
 labs(x = '') + labs(y = '')
+```
+
+```
+## Warning: position_stack requires constant width: output may be incorrect
 ```
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
@@ -76,7 +80,7 @@ sample_mean
 ```
 
 ```
-## [1] 5.006923
+## [1] 5.018012
 ```
 
 As we can see they are almost equal:
@@ -86,7 +90,7 @@ abs(theoretical_mean - sample_mean)
 ```
 
 ```
-## [1] 0.006922838
+## [1] 0.01801213
 ```
 
 Let's look at sample mean on distribution histogram:
@@ -100,4 +104,42 @@ geom_vline(aes(xintercept = sample_mean), color = "blue", linetype = "dashed", s
 labs(x = '') + labs(y = '')
 ```
 
+```
+## Warning: position_stack requires constant width: output may be incorrect
+```
+
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+
+### Sample Variance versus Theoretical Variance
+
+Theoretical variance of the distribution:
+
+```r
+theoretical_variance <- (1 / lambda^2) / sample_size
+theoretical_variance
+```
+
+```
+## [1] 0.625
+```
+
+Sample variance of the distribution:
+
+```r
+sample_variance <- sd(exp_means)^2
+sample_variance
+```
+
+```
+## [1] 0.6145019
+```
+
+As we can see they are almost equal:
+
+```r
+abs(theoretical_variance - sample_variance)
+```
+
+```
+## [1] 0.01049806
+```

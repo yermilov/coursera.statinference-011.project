@@ -75,3 +75,22 @@ geom_density(size = 2, color = "red", alpha=.2, fill="#FF6666") +
 geom_vline(aes(xintercept = sample_mean), color = "blue", linetype = "dashed", size = 1) +
 labs(x = '') + labs(y = '')
 ```
+
+### Sample Variance versus Theoretical Variance
+
+Theoretical variance of the distribution:
+```{r}
+theoretical_variance <- (1 / lambda^2) / sample_size
+theoretical_variance
+```
+
+Sample variance of the distribution:
+```{r}
+sample_variance <- sd(exp_means)^2
+sample_variance
+```
+
+As we can see they are almost equal:
+```{r}
+abs(theoretical_variance - sample_variance)
+```
