@@ -35,7 +35,7 @@ head(exp_means)
 ```
 
 ```
-## [1] 5.247034 4.373612 3.977648 5.213831 3.205959 5.783001
+## [1] 5.364266 3.738962 5.443620 4.189726 4.970103 3.382012
 ```
 
 Let's look at distribution histogram:
@@ -50,10 +50,6 @@ ggplot(data_frame, aes(x = exp_means)) +
 geom_histogram(aes(y = ..density..), binwidth=.1, colour="black", fill="white") + 
 geom_density(size = 2, color = "red", alpha=.2, fill="#FF6666") + 
 labs(x = '') + labs(y = '')
-```
-
-```
-## Warning: position_stack requires constant width: output may be incorrect
 ```
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
@@ -80,17 +76,18 @@ sample_mean
 ```
 
 ```
-## [1] 5.018012
+## [1] 5.032364
 ```
 
-As we can see they are almost equal:
+As we can see, they are almost equal:
+
 
 ```r
 abs(theoretical_mean - sample_mean)
 ```
 
 ```
-## [1] 0.01801213
+## [1] 0.03236355
 ```
 
 Let's look at sample mean on distribution histogram:
@@ -104,13 +101,9 @@ geom_vline(aes(xintercept = sample_mean), color = "blue", linetype = "dashed", s
 labs(x = '') + labs(y = '')
 ```
 
-```
-## Warning: position_stack requires constant width: output may be incorrect
-```
-
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
 
-### Sample Variance versus Theoretical Variance
+## Sample Variance versus Theoretical Variance
 
 Theoretical variance of the distribution:
 
@@ -131,15 +124,33 @@ sample_variance
 ```
 
 ```
-## [1] 0.6145019
+## [1] 0.6370447
 ```
 
-As we can see they are almost equal:
+As we can see, they are almost equal:
+
 
 ```r
 abs(theoretical_variance - sample_variance)
 ```
 
 ```
-## [1] 0.01049806
+## [1] 0.01204474
 ```
+
+## Distribution
+
+Let's finally compare our distribution with normal one:
+
+
+```r
+ggplot(data_frame, aes(x = exp_means)) + 
+geom_histogram(aes(y = ..density..), binwidth=.1, colour="black", fill="white") + 
+geom_density(size = 2, color = "red", alpha=.1, fill="#FF6666") + 
+stat_function(fun = dnorm, args = list(mean = sample_mean, sd = sqrt(sample_variance)), size = 2, color = "blue", alpha=.5, fill="#FF6666") +
+labs(x = '') + labs(y = '')
+```
+
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) 
+
+As we can see, our distribution is approximately normal.

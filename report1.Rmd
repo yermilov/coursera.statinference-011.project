@@ -61,7 +61,8 @@ sample_mean <- mean(exp_means)
 sample_mean
 ```
 
-As we can see they are almost equal:
+As we can see, they are almost equal:
+
 ```{r}
 abs(theoretical_mean - sample_mean)
 ```
@@ -76,7 +77,7 @@ geom_vline(aes(xintercept = sample_mean), color = "blue", linetype = "dashed", s
 labs(x = '') + labs(y = '')
 ```
 
-### Sample Variance versus Theoretical Variance
+## Sample Variance versus Theoretical Variance
 
 Theoretical variance of the distribution:
 ```{r}
@@ -90,7 +91,22 @@ sample_variance <- sd(exp_means)^2
 sample_variance
 ```
 
-As we can see they are almost equal:
+As we can see, they are almost equal:
+
 ```{r}
 abs(theoretical_variance - sample_variance)
 ```
+
+## Distribution
+
+Let's finally compare our distribution with normal one:
+
+```{r}
+ggplot(data_frame, aes(x = exp_means)) + 
+geom_histogram(aes(y = ..density..), binwidth=.1, colour="black", fill="white") + 
+geom_density(size = 2, color = "red", alpha=.1, fill="#FF6666") + 
+stat_function(fun = dnorm, args = list(mean = sample_mean, sd = sqrt(sample_variance)), size = 2, color = "blue", alpha=.5, fill="#FF6666") +
+labs(x = '') + labs(y = '')
+```
+
+As we can see, our distribution is approximately normal.
